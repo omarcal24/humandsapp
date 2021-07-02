@@ -5,7 +5,6 @@ import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-import missingno as msno
 import itertools
 from imblearn.over_sampling import SMOTE
 from IPython.display import display # Allows the use of display() for DataFrames
@@ -17,6 +16,9 @@ st.set_page_config(page_title="Dataset de IBM para predecir desgaste en sus trab
                    layout='wide')
 
 st.title("Dataset de IBM para predecir desgaste en sus trabajadores")
+
+st.header("Proyecto hecho por Pablo Martín y Omar Calderón")
+st.header("Para el Demoday de Saturdays AI edición Bilbao")
 
 df = pd.read_csv('data/IBM-HR.csv')
 
@@ -67,20 +69,6 @@ with st.echo():
     df.drop(['EmployeeCount', 'StandardHours', 'Over18', 'EmployeeNumber'], inplace=True, axis=1)
 
 
-my_expander2 = st.beta_expander("Mostrar valores nulos del dataset", expanded=False)
-with my_expander2:
-    fig1 = plt.figure(figsize=(20,20))
-    msno.bar(df)
-    st.pyplot(fig1)
-
-
-#st.write("Matriz de correlaciones del dataset")
-#corrMatrix = df.corr()
-#fig = plt.figure(figsize=(25,25))
-#sns.heatmap(corrMatrix, annot=True, cmap="RdBu_r")
-#st.pyplot(fig)
-
-
 st.subheader("Separamos la variable dependiente de las independientes")
 with st.echo():
     X = df.drop('Attrition', axis=1)
@@ -119,16 +107,6 @@ with my_expander3:
     plt.hist(prob)
     st.pyplot(fig3)
 
-
-#st.write("Vemos la importancia de cada feature")
-#with st.echo():
-#    feat_importances = pd.Series(clf.feature_importances_, index=X_train.columns)
-#    feat_importances.nlargest(11).plot(kind='barh')
-
-
-#fig2 = plt.figure(figsize=(10,10))
-#feat_importances.nlargest(11).plot(kind='barh')
-#st.pyplot(fig2)
 
 augmented_df = X_sm
 augmented_df['Attrition'] = y_sm
