@@ -4,5 +4,5 @@ matplotlib
 sklearn
 seaborn
 imblearn
-streamlit==0.60.0
+streamlit==0.84.0
 opencv-python-headless
